@@ -10,26 +10,37 @@ import org.springframework.context.annotation.Profile;
 
 import com.alkham.entities.Category;
 import com.alkham.entities.Order;
+import com.alkham.entities.Product;
 import com.alkham.entities.User;
 import com.alkham.entities.enums.OrderStatus;
 import com.alkham.repositories.CategoryRepository;
 import com.alkham.repositories.OrderRepository;
+import com.alkham.repositories.ProductRepository;
 import com.alkham.repositories.UserRepository;
 
 @Configuration
 @Profile("test")
-/* 1.1 Referencia ao nome definido em 'spring.profiles.active=test' no arquivo 'application.properties'
- * 1.2 Define que essa classe de configuração só será usada no perfil de teste. */
-public class TestConfig implements CommandLineRunner { //2.1 Uma interface q implementa metodos para executar certos comandos quando o app é iniciado.
-	
-	@Autowired //3.1 Maneira como o Spring irá fazer um injeção de dependência dentro desta classe.
-	private UserRepository userRepository; //3.2 Um dependência fraca de UserRepository feita automaticamente pelo Spring. 
-	//3.3 Nada de = new Repository(), o Spring se encarrega disso, associando uma instância.
+/*
+ * 1.1 Referencia ao nome definido em 'spring.profiles.active=test' no arquivo
+ * 'application.properties' 1.2 Define que essa classe de configuração só será
+ * usada no perfil de teste.
+ */
+public class TestConfig implements CommandLineRunner { // 2.1 Uma interface q implementa metodos para executar certos
+														// comandos quando o app é iniciado.
+
+	@Autowired // 3.1 Maneira como o Spring irá fazer um injeção de dependência dentro desta
+				// classe.
+	private UserRepository userRepository; // 3.2 Um dependência fraca de UserRepository feita automaticamente pelo
+											// Spring.
+	// 3.3 Nada de = new Repository(), o Spring se encarrega disso, associando uma
+	// instância.
 	@Autowired
 	private OrderRepository orderRepository;
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+	@Autowired
+	private ProductRepository productRepository;
+
 	@Override //2.1 Metodo q será executado na inicialização...
 	public void run(String... args) throws Exception {
 		
@@ -55,14 +66,13 @@ public class TestConfig implements CommandLineRunner { //2.1 Uma interface q imp
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Computers");
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
-		
+	
+		Product p1 = new Product (null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+		Product p2 = new Product (null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+		Product p3 = new Product (null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+		Product p4 = new Product (null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+		Product p5 = new Product (null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 		
 	}
 }
-
-
-
-
-
-
-
