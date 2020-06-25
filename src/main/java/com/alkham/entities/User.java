@@ -1,13 +1,18 @@
 package com.alkham.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "tb_user")
 public class User implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -21,6 +26,8 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
+	@OneToMany(mappedBy = "client")// Diz para o JPA que este atributo está mapeado na entidade Order com a variavel "client"
+	private List<Order> orders = new ArrayList<Order>(); //Um cliente(User) possui um ou vários pedidos(Order)
 	
 	public User() {
 	}
@@ -62,7 +69,10 @@ public class User implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+	public List<Order> getOrders() {
+		return orders;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
