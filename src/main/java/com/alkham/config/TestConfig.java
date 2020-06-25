@@ -32,7 +32,4 @@ public class TestConfig implements CommandLineRunner { //2.1 Uma interface q imp
 		userRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6));
 		
 	}
-	
-	
-	
 }

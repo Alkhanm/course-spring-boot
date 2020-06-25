@@ -1,6 +1,7 @@
 package com.alkham.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.alkham.entities.User;
 
@@ -8,6 +9,7 @@ import com.alkham.entities.User;
  * O JPA já possui um implementação padrão para essa interface JpaRepository, 
  * por esse motivo ñ é necessario criar um implemetação para essa interface que acaba de ser criada, 
  * o frameWork já cuidou disso. */
+@Repository //Essa anotação é opcional, pois JpaRepository já possui está configurado como um componente do Spring.
 public interface UserRepository extends JpaRepository<User, Long> {
 	
 	
