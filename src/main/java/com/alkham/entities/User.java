@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tb_user")
 public class User implements Serializable{
@@ -26,6 +28,7 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")// Diz para o JPA que este atributo está mapeado na entidade Order com a variavel "client"
 	private List<Order> orders = new ArrayList<Order>(); //Um cliente(User) possui um ou vários pedidos(Order)
 	

@@ -11,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonFormat.Shape;
+
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable{
@@ -25,10 +28,11 @@ public class Order implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@JsonFormat(shape = Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT") //Formatar a data para o padrão ISO-8601
 	private Instant moment;
 	
 	@ManyToOne //Para o JPA saber que o relacionamento com User é de MUITOS para UM
-	@JoinColumn(name="id_client") //Nome da chave estrangeira que haverá nesta table
+	@JoinColumn(name="client_id") //Nome da chave estrangeira que haverá nesta table
 	private User client; //Um pedido(Order) pertence a um cliente (User), e um cliente pode ter um ou varios pedidos
 	
 	
