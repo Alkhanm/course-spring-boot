@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.alkham.entities.Order;
 import com.alkham.entities.User;
+import com.alkham.entities.enums.OrderStatus;
 import com.alkham.repositories.OrderRepository;
 import com.alkham.repositories.UserRepository;
 
@@ -36,14 +37,14 @@ public class TestConfig implements CommandLineRunner { //2.1 Uma interface q imp
 		User u6 = new User(null, "Williams", "liaams@gmail.com", "54577777", "45457677");
 		userRepository.saveAll(Arrays.asList(u1, u2, u3, u4, u5, u6));
 		
-		Order o1 = new Order(null, Instant.parse("2017-02-12T19:53:07Z"), u1);
-		Order o2 = new Order(null, Instant.parse("2018-01-25T03:42:10Z"), u2);
-		Order o3 = new Order(null, Instant.parse("2019-06-30T15:21:22Z"), u3);
-		Order o4 = new Order(null, Instant.parse("2020-07-12T15:21:22Z"), u4);
-		Order o5 = new Order(null, Instant.parse("2020-07-02T15:21:22Z"), u5);
-		Order o6 = new Order(null, Instant.parse("2020-06-01T15:21:22Z"), u6);
-		Order o7 = new Order(null, Instant.parse("2020-07-03T15:21:22Z"), u2);
-		Order o8 = new Order(null, Instant.parse("2020-08-06T15:21:22Z"), u1);
+		Order o1 = new Order(null, Instant.parse("2017-02-12T19:53:07Z"), OrderStatus.DELIVERED, u1);
+		Order o2 = new Order(null, Instant.parse("2018-01-25T03:42:10Z"), OrderStatus.PAID, u2);
+		Order o3 = new Order(null, Instant.parse("2019-06-30T15:21:22Z"), OrderStatus.CANCELED, u3);
+		Order o4 = new Order(null, Instant.parse("2020-07-12T15:21:22Z"), OrderStatus.CANCELED, u4);
+		Order o5 = new Order(null, Instant.parse("2020-07-02T15:21:22Z"), OrderStatus.DELIVERED, u5);
+		Order o6 = new Order(null, Instant.parse("2020-06-01T15:21:22Z"), OrderStatus.DELIVERED, u6);
+		Order o7 = new Order(null, Instant.parse("2020-07-03T15:21:22Z"), OrderStatus.DELIVERED,u2);
+		Order o8 = new Order(null, Instant.parse("2020-08-06T15:21:22Z"), OrderStatus.PAID, u1);
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3, o4, o5, o6, o7, o8));
 		
 	}
