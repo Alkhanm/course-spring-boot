@@ -8,9 +8,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import com.alkham.entities.Category;
 import com.alkham.entities.Order;
 import com.alkham.entities.User;
 import com.alkham.entities.enums.OrderStatus;
+import com.alkham.repositories.CategoryRepository;
 import com.alkham.repositories.OrderRepository;
 import com.alkham.repositories.UserRepository;
 
@@ -25,6 +27,8 @@ public class TestConfig implements CommandLineRunner { //2.1 Uma interface q imp
 	//3.3 Nada de = new Repository(), o Spring se encarrega disso, associando uma instância.
 	@Autowired
 	private OrderRepository orderRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	@Override //2.1 Metodo q será executado na inicialização...
 	public void run(String... args) throws Exception {
@@ -46,6 +50,12 @@ public class TestConfig implements CommandLineRunner { //2.1 Uma interface q imp
 		Order o7 = new Order(null, Instant.parse("2020-07-03T15:21:22Z"), OrderStatus.DELIVERED,u2);
 		Order o8 = new Order(null, Instant.parse("2020-08-06T15:21:22Z"), OrderStatus.PAID, u1);
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3, o4, o5, o6, o7, o8));
+		
+		Category cat1 = new Category(null, "Electronics");
+		Category cat2 = new Category(null, "Books");
+		Category cat3 = new Category(null, "Computers");
+		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
 		
 	}
 }
