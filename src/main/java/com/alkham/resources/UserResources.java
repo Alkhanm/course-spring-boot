@@ -13,7 +13,7 @@ public class UserResources {
 	
 	/* ReponseEntity<T> = Um tipo especial Spring responsavel por retornar respostas de requisições Web
 	 * É um tipo gênerico, assim é necessario espeficar entre <> qual tipo especifico ele podera retornar*/
-	@GetMapping
+	@GetMapping //Indica que irá retornar uma resposta GET
 	public ResponseEntity<User> finAll(){
 		User u = new User(2L, "Maria", "Maria@gmail.com", "fsdfsdf", "fsdf");
 		
