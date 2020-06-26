@@ -28,9 +28,11 @@ public class UserService {
 		return repository.findAll();
 	}
 	public User findById(Long id) {
-		
 		Optional<User> result = repository.findById(id); //Optional pega apenas objetos que possuirem valores, caso seja nulo, ele retorna um Optional vazio.
-		
 		return result.get();
+	}
+	
+	public User insert (User obj) {
+		return repository.save(obj);
 	}
 }

@@ -85,11 +85,17 @@ public class TestConfig implements CommandLineRunner { // 2.1 Uma interface q im
 		Order order8 = new Order(null, Instant.parse("2020-08-06T15:21:22Z"), OrderStatus.PAID, user1);
 		orderRepository.saveAll(Arrays.asList(order1, order2, order3, order4, order5, order6, order7, order8));
 		
-		OrderItem orderItem1 = new OrderItem(order1, product1, 2, product1.getPrice());
-		OrderItem orderItem2 = new OrderItem(order1, product3, 1, product3.getPrice());
-		OrderItem orderItem3 = new OrderItem(order2, product3, 2, product3.getPrice());
-		OrderItem orderItem4 = new OrderItem(order3, product5, 2, product5.getPrice());
-		orderItemRepository.saveAll(Arrays.asList(orderItem1,orderItem2,orderItem3,orderItem4));
+		OrderItem orderItem1 = new OrderItem(order1, product1, 2);
+		OrderItem orderItem2 = new OrderItem(order1, product3, 1);
+		OrderItem orderItem3 = new OrderItem(order2, product3, 1);
+		OrderItem orderItem4 = new OrderItem(order3, product4, 3);
+		OrderItem orderItem5 = new OrderItem(order4, product2, 3);
+		OrderItem orderItem6 = new OrderItem(order5, product2, 7);
+		OrderItem orderItem7 = new OrderItem(order6, product1, 5);
+		OrderItem orderItem8 = new OrderItem(order7, product3, 6);
+		OrderItem orderItem9 = new OrderItem(order8, product5, 8);
+		OrderItem orderItem10 = new OrderItem(order8, product5, 8);
+		orderItemRepository.saveAll(Arrays.asList(orderItem1,orderItem2,orderItem3,orderItem4, orderItem5, orderItem6, orderItem7, orderItem8, orderItem9, orderItem10));
 		
 		Payment pay1 = new Payment(null,Instant.parse("2017-02-12T22:53:07Z"), order1);
 		order1.setPayment(pay1); //Associa o pagamento ao pedido que foi pago
