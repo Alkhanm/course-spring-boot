@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.alkham.entities.Category;
 import com.alkham.entities.Order;
 import com.alkham.entities.OrderItem;
+import com.alkham.entities.Payment;
 import com.alkham.entities.Product;
 import com.alkham.entities.User;
 import com.alkham.entities.enums.OrderStatus;
@@ -90,5 +91,12 @@ public class TestConfig implements CommandLineRunner { // 2.1 Uma interface q im
 		OrderItem orderItem4 = new OrderItem(order3, product5, 2, product5.getPrice());
 		orderItemRepository.saveAll(Arrays.asList(orderItem1,orderItem2,orderItem3,orderItem4));
 		
+		Payment pay1 = new Payment(null,Instant.parse("2017-02-12T22:53:07Z"), order1);
+		order1.setPayment(pay1); //Associa o pagamento ao pedido que foi pago
+		orderRepository.save(order1); //Chama o JPA novamente que, por padrão, já se encarrega de salvar o pagamento associado
+		
+		Payment pay2 = new Payment(null,Instant.parse("2020-08-06T16:21:22Z"), order8);
+		order8.setPayment(pay2);
+		orderRepository.save(order8);
 	}
 }
