@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.alkham.entities.User;
 import com.alkham.repositories.UserRepository;
+import com.alkham.services.exceptions.ResourceNotFoundException;
 
 /* As classes services são as encarregadas de fazer a ligação controllers/repositories. 
  * Elas dependem dos repositorys para pegar os dados e repassa-los para os controllers. 
@@ -29,7 +30,7 @@ public class UserService {
 	}
 	public User findById(Long id) {
 		Optional<User> result = repository.findById(id); //Optional pega apenas objetos que possuirem valores, caso seja nulo, ele retorna um Optional vazio.
-		return result.get();
+		return result.orElseThrow(() -> new ResourceNotFoundException(id)); //orElseThrow = tenta buscar o resultado, caso não ache lança uma exception
 	}
 	
 	public User insert (User obj) {
