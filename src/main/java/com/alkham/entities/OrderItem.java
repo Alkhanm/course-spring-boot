@@ -6,6 +6,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import com.alkham.entities.pk.OrderItemPK;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /* Classe encarregada de fazer a associação entre produtos(Product) e pedidos (Order). 
  * Mas além disso, possui alguns atributos próprios. */
@@ -15,8 +16,9 @@ public class OrderItem implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	
 	@EmbeddedId
-	private OrderItemPK id;
+	private OrderItemPK id = new OrderItemPK();
 	
 	private Integer quantity;
 	private Double price;
@@ -31,12 +33,14 @@ public class OrderItem implements Serializable {
 	}
 	
 	
+	@JsonIgnore //Evitar o loop infinito dos Jsons associados (neste caso, fica no metodo get pq é ele quem chama pedido(Order))
 	public Order getOrder() {
 		return id.getOrder();
 	}
 	public void setOrder(Order order) {
 		this.id.setOrder(order);
 	}
+	
 	public Product getProduct() {
 		return id.getProduct();
 	}
