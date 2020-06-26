@@ -10,7 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_category")
@@ -27,7 +28,8 @@ public class Category implements Serializable{
 	
 	private String name;
 	
-	@Transient
+	@JsonIgnore
+	@ManyToMany(mappedBy = "categories") // Nome do atributo que, na outra classe, é responsavel por associar as duas entidades
 	private Set<Product> products =new HashSet<Product>();
 	
 	public Category() {

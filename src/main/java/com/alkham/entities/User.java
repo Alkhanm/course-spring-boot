@@ -28,7 +28,7 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
-	@JsonIgnore
+	@JsonIgnore //Evita que o Jackson fique em loop, buscando e buscando por objetos associados através do JPA. Lembre-se disso ao usar listas q associam entidades.
 	@OneToMany(mappedBy = "client")// Diz para o JPA que este atributo está mapeado na entidade Order com a variavel "client"
 	private List<Order> orders = new ArrayList<Order>(); //Um cliente(User) possui um ou vários pedidos(Order)
 	
