@@ -3,6 +3,8 @@ package com.alkham.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -51,10 +53,13 @@ public class UserService {
 	}
 	
 	public User update(Long id, User obj) {
-		User entity = repository.getOne(id); //O getOne não vai ao db buscar, ele apenas monitora uma entidade que, posteriormente, terá alguma operação no db.
-		updateData(entity, obj);
-		
-		return repository.save(entity);
+		try{
+			User entity = repository.getOne(id); //O getOne não vai ao db buscar, ele apenas monitora uma entidade que, posteriormente, terá alguma operação no db.
+			updateData(entity, obj);
+			return repository.save(entity);
+		} catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
 	
 	private void updateData(User entity, User obj) {
