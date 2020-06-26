@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -39,6 +40,8 @@ public class Product implements Serializable{
 			  inverseJoinColumns = @JoinColumn(name="category_id"))/* A coluna que irá guardar o nome da outra tabela. */
 	private Set<Category> categories = new HashSet<>(); /* O 'Set' evita que um produto posso ter mais de uma categoria. */
 	
+	@OneToMany(mappedBy = "id.product")
+	private Set<OrderItem> items = new HashSet<>(); //Lista de pedidos deste produto.
 	
 	public Product() {
 	}
@@ -49,7 +52,6 @@ public class Product implements Serializable{
 		this.price = price;
 		this.imgUrl = imgUrl;
 	}
-
 
 	public Long getId() {
 		return id;
@@ -83,6 +85,15 @@ public class Product implements Serializable{
 	}
 	public Set<Category> getCategories() {
 		return categories;
+	}
+	
+	@JsonIgnore
+	public Set<Order> getOrders(){ //Irá retorna as lista de pedidos(Order) associados a esse produto(Product)
+		Set<Order> orders = new HashSet<>();
+		for(OrderItem x : items) { //Para cada elemento dentro da lista 'items' de OrdermItem
+			orders.add(x.getOrder()); //Pegue o pedido (Order) e adicione na lista 'orders'
+		}
+		return orders; //Então devolva essa lista. O que interessa é apenas pegar a lista de pedidos, não os outros items(Product) associados nestes pedidos.
 	}
 	
 	@Override

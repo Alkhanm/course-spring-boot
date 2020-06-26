@@ -38,7 +38,7 @@ public class Order implements Serializable{
 	private User client; //Um pedido(Order) pertence a um cliente (User), e um cliente pode ter um ou varios pedidos
 	
 	@OneToMany(mappedBy = "id.order")//No 'orderItem' há o 'id', no 'id' por sua vez a q haverá a associação com 'order'
-	private Set<OrderItem> items = new HashSet<>();
+	private Set<OrderItem> items = new HashSet<>(); //Lista de items dentro deste pedido
 	
 	public Order() {
 	}
